@@ -1,0 +1,67 @@
+<body>
+	<table style="border-style: solid; border-collapse: collapse; border-width:1px;">
+		<tr>
+			<th style="border-style: solid; border-width:1px;">基準ピクセル</th>
+			<th style="border-style: solid; border-width:1px;">ピッチ(mm)</th>
+		</tr>
+		<tr>
+			<td style="border-style: solid; border-width:1px; text-align:right;"><input type="text" id="txtBasePix" style="width:60px; text-align:right;" value="32" /></td>
+			<td style="border-style: solid; border-width:1px; text-align:right;"><input type="text" id="txtBasePitch" style="width:60px; text-align:right;" value="2.54" /></td>
+		</tr>
+	</table>
+	<br/>
+	<table>
+		<tr>
+			<td><table style="border-style: solid; border-collapse: collapse; border-width:1px;" id="tbMM2Px"></table></td>
+			<td style="width:40px"></td>
+			<td><table style="border-style: solid; border-collapse: collapse; border-width:1px;" id="tbPx2MM"></table></td>
+		</tr>
+	</table>
+</body>
+<script type="text/javascript">
+var mTabIdx = 1;
+
+createTable("ピクセル⇒mm", "tbPx2MM", "txtInputPix", "lblOutputMM", 10);
+createTable("mm⇒ピクセル", "tbMM2Px", "txtInputMM", "lblOutputPix", 10);
+calc();
+document.onkeyup = calc;
+
+function createTable(title, tbName, inputName, outputName, rows) {
+	var tdStyle = "border-style: solid; border-width:1px;";
+	var tb = "<tr>";
+		tb += "<th colspan=\"3\" style=\"border-style: solid; border-width:1px;\">" + title + "</th>";
+		tb += "</tr>";
+	var tabInput = mTabIdx;
+	var tabName = mTabIdx + rows;
+	mTabIdx += rows * 2;
+	for(i=0; i<rows; i++) {
+		tb += "<tr>";
+		tb += "<td style=\"" + tdStyle + "\"><input type=\"text\" style=\"border: none;width:80px\" value=\"Name\" /></td>";
+		tb += "<td style=\"" + tdStyle + "\"><input type=\"text\" id=\"" + inputName + i + "\" style=\"border: none;width:60px; text-align:right;\" value=\"0\" /></td>";
+		tb += "<td style=\"" + tdStyle + "width:80px; text-align:right;\"><span id=\"" + outputName + i + "\"></span></td>";
+		tb += "</tr>";
+		tabInput++;
+		tabName++;
+	}
+	document.getElementById(tbName).innerHTML = tb;
+}
+
+function strFlor(value, digit) {
+	var unit = Math.pow(10, digit);
+	return (parseInt(value * unit) / unit).toFixed(digit);
+}
+
+function calc() {
+	var basePix = document.getElementById("txtBasePix").value * 1.0;
+	var basePitch = document.getElementById("txtBasePitch").value * 1.0;
+
+	for(i=0; i<10; i++) {
+		var inputPix = document.getElementById("txtInputPix" + i).value * 1.0;
+		document.getElementById("lblOutputMM" + i).innerHTML = strFlor(inputPix * basePitch / basePix, 2) + "mm";
+	}
+	for(i=0; i<10; i++) {
+		var inputMM = document.getElementById("txtInputMM" + i).value * 1.0;
+		document.getElementById("lblOutputPix" + i).innerHTML = strFlor(inputMM * basePix / basePitch, 2) + "px";
+	}
+}
+</script>
