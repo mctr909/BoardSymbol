@@ -4,14 +4,12 @@
     "file_name": "TO92.png",
     "pivot": [29, 35],
     "tarminal": [[29, 67], [29, 35], [29, 3]]
-},
-{
+}, {
     "parts_name": "TO-220",
     "file_name": "TO220.png",
     "pivot": [31, 62],
     "tarminal": [[31, 94], [31, 62], [31, 30]]
-},
-{
+}, {
     "parts_name": "SOT-23",
     "file_name": "SOT23.png",
     "smd": true,

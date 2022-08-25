@@ -6,8 +6,7 @@
     "texture_pos": [[3, 47], [3, 59], [3, 71], [3, 83]],
     "pivot": [13, 67],
     "tarminal": [[13, 3], [13, 131]]
-},
-{
+}, {
     "parts_name": "カーボン抵抗(表面実装1608)",
     "file_name": "1608.png",
     "texture": ["1608_number.png", [1, 10], [9, 4]],
@@ -15,8 +14,7 @@
     "smd": true,
     "pivot": [5, 10],
     "tarminal": [[5, -6], [5, 26]]
-},
-{
+}, {
     "parts_name": "半固定抵抗",
     "file_name": "semifix.png",
     "pivot": [37, 48],
