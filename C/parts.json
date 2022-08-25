@@ -1,0 +1,40 @@
+{"capcitor_list":[
+{
+    "parts_name": "積層セラミックコンデンサ(リード付き)",
+    "file_name": "cera_stack.png",
+    "pivot": [10, 35],
+    "tarminal": [[10, 3], [10, 67]]
+},
+{
+    "parts_name": "積層セラミックコンデンサ(表面実装1608)",
+    "file_name": "SMD_1608.png",
+    "texture": ["SMD_1608_number.png", [1, 10], [9, 4]],
+    "smd": true,
+    "pivot": [5, 10],
+    "tarminal": [[5, -6], [5, 26]]
+},
+{
+    "parts_name": "セラミックコンデンサ",
+    "file_name": "cera050.png",
+    "pivot": [12, 37],
+    "tarminal": [[12, 5], [12, 69]]
+},
+{
+    "parts_name": "電解コンデンサ(5mm)",
+    "file_name": "chemi050.png",
+    "pivot": [30, 30],
+    "tarminal": [[30, 14], [30, 46]]
+},
+{
+    "parts_name": "電解コンデンサ(6.3mm)",
+    "file_name": "chemi063.png",
+    "pivot": [40, 40],
+    "tarminal": [[39, 23], [39, 55]]
+},
+{
+    "parts_name": "電解コンデンサ(10mm)",
+    "file_name": "chemi100.png",
+    "pivot": [63, 63],
+    "tarminal": [[62, 30], [62, 94]]
+}
+]}
