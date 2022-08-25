@@ -7,8 +7,9 @@
 },
 {
     "parts_name": "積層セラミックコンデンサ(表面実装1608)",
-    "file_name": "SMD_1608.png",
-    "texture": ["SMD_1608_number.png", [1, 10], [9, 4]],
+    "file_name": "1608.png",
+    "texture": ["1608_number.png", [1, 10], [9, 4]],
+    "texture_pos": [[1, 5], [1, 9], [1, 13]],
     "smd": true,
     "pivot": [5, 10],
     "tarminal": [[5, -6], [5, 26]]

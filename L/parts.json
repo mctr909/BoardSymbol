@@ -3,6 +3,7 @@
     "parts_name": "マイクロインダクタ(3mm)",
     "file_name": "axial030.png",
     "texture": ["axial030_number.png", [1, 12], [31, 6]],
+    "texture_pos": [[3, 45], [3, 58], [3, 71], [3, 84]],
     "pivot": [18, 67],
     "tarminal": [[18, 3], [18, 131]]
 }

@@ -13,7 +13,7 @@
 },
 {
     "parts_name": "SOT-23",
-    "file_name": "SMD_SOT23.png",
+    "file_name": "SOT23.png",
     "smd": true,
     "pivot": [18, 19],
     "tarminal": [[2, 35], [34, 35], [34, 3], [2, 3]]
