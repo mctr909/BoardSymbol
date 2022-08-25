@@ -1,0 +1,10 @@
+{"switch_list":[
+{
+    "parts_name": "スライドスイッチ",
+    "file_name": "slide.png",
+    "texture": ["slide_knob.png", [2, 1], [21, 45]],
+    "texture_pos": [[12, 31]],
+    "pivot": [22, 53],
+    "tarminal": [[22, 85], [22, 53], [22, 21]]
+}
+]}
