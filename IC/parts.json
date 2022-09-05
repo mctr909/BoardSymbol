@@ -26,6 +26,7 @@
 }, {
     "parts_name": "SOT-23-5",
     "file_name": "SOT23_5.png",
+	"smd": true,
     "pivot": [18, 20],
     "tarminal": [
         [ 2, 36], [ 18, 37], [34, 36], [34, 4], [2, 4]
