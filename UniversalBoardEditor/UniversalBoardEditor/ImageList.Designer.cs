@@ -70,10 +70,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(258, 236);
+            this.ClientSize = new System.Drawing.Size(240, 217);
             this.ControlBox = false;
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.MinimumSize = new System.Drawing.Size(256, 256);
             this.Name = "ImageList";
             this.Text = "ImageList";
             this.Load += new System.EventHandler(this.ImageList_Load);

@@ -5,7 +5,7 @@ namespace UniversalBoardEditor {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            var fm = new ImageList("C:\\Users\\ris\\Desktop\\BoardSymbol");
+            var fm = new ImageList();
             fm.Show();
         }
     }

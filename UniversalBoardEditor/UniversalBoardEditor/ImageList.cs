@@ -13,6 +13,8 @@ namespace UniversalBoardEditor {
     public partial class ImageList : Form {
         const int ITEM_SPAN = 32;
         readonly Font NAME_FONT = new Font("Meiryo UI", 9, FontStyle.Regular);
+        readonly Font TERM_FONT = new Font("Meiryo UI", 9, FontStyle.Bold);
+        readonly Brush TERM_BACKGROUND = (new Pen(Color.FromArgb(127, 255, 255, 255), 1)).Brush;
 
         Dictionary<string, List<ImageElements>> Lists = new Dictionary<string, List<ImageElements>>();
         bool mSetSize = false;
@@ -20,12 +22,49 @@ namespace UniversalBoardEditor {
         bool mScroll = false;
         int mSelectedItem = 0;
 
-        public ImageList(string imagePath) {
+        public ImageList() {
             InitializeComponent();
-            loadDir(imagePath);
+            loadDir();
         }
 
-        void loadDir(string imagePath) {
+        private void ImageList_Load(object sender, EventArgs e) {
+            StartPosition = FormStartPosition.CenterParent;
+            setTab();
+            setSize();
+            timer1.Interval = 33;
+            timer1.Enabled = true;
+            timer1.Start();
+        }
+
+        private void ImageList_SizeChanged(object sender, EventArgs e) {
+            mSetSize = true;
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e) {
+            mSetSize = true;
+            mSetVScrollValue = true;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e) {
+            if (mSetSize) {
+                setSize();
+            }
+            if (mSetSize || mSetVScrollValue) {
+                setVScrollValue();
+            }
+            if (mSetSize || mSetVScrollValue || mScroll) {
+                scroll();
+            }
+            mSetSize = false;
+            mSetVScrollValue = false;
+            mScroll = false;
+        }
+
+        void loadDir() {
+            var imagePath = Path.GetDirectoryName(Application.ExecutablePath) + "\\image";
+            if (!Directory.Exists(imagePath)) {
+                return;
+            }
             var dirs = Directory.GetDirectories(imagePath);
             foreach (var dir in dirs) {
                 if (!File.Exists(dir + "\\parts.json")) {
@@ -63,38 +102,6 @@ namespace UniversalBoardEditor {
             }
         }
 
-        private void ImageList_Load(object sender, EventArgs e) {
-            setTab();
-            setSize();
-            timer1.Interval = 33;
-            timer1.Enabled = true;
-            timer1.Start();
-        }
-
-        private void ImageList_SizeChanged(object sender, EventArgs e) {
-            mSetSize = true;
-        }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e) {
-            mSetSize = true;
-            mSetVScrollValue = true;
-        }
-
-        private void timer1_Tick(object sender, EventArgs e) {
-            if (mSetSize) {
-                setSize();
-            }
-            if (mSetSize || mSetVScrollValue) {
-                setVScrollValue();
-            }
-            if (mSetSize || mSetVScrollValue || mScroll) {
-                scroll();
-            }
-            mSetSize = false;
-            mSetVScrollValue = false;
-            mScroll = false;
-        }
-
         void setTab() {
             tabControl1.Top = 0;
             tabControl1.Left = 0;
@@ -120,7 +127,7 @@ namespace UniversalBoardEditor {
             tabControl1.Width = Width - 14;
             tabControl1.Height = Height - 38;
             var tab = tabControl1.SelectedTab;
-            if (0 == tab.Controls.Count) {
+            if (null == tab || 0 == tab.Controls.Count) {
                 return;
             }
             var pic = (PictureBox)tab.Controls["pic" + tab.Name];
@@ -141,9 +148,13 @@ namespace UniversalBoardEditor {
         }
 
         void setVScrollValue() {
-            var tabName = tabControl1.SelectedTab.Name;
-            var vsb = (VScrollBar)tabControl1.SelectedTab.Controls["vsb" + tabName];
-            var pic = (PictureBox)tabControl1.SelectedTab.Controls["pic" + tabName];
+            var tab = tabControl1.SelectedTab;
+            if (null == tab || 0 == tab.Controls.Count) {
+                return;
+            }
+            var tabName = tab.Name;
+            var vsb = (VScrollBar)tab.Controls["vsb" + tabName];
+            var pic = (PictureBox)tab.Controls["pic" + tabName];
             var maxWidth = pic.Width;
             int height = 0;
             int lastHeight = 0;
@@ -161,9 +172,13 @@ namespace UniversalBoardEditor {
         }
 
         void scroll() {
-            var tabName = tabControl1.SelectedTab.Name;
-            var vsb = (VScrollBar)tabControl1.SelectedTab.Controls["vsb" + tabName];
-            var pic = (PictureBox)tabControl1.SelectedTab.Controls["pic" + tabName];
+            var tab = tabControl1.SelectedTab;
+            if (null == tab || 0 == tab.Controls.Count) {
+                return;
+            }
+            var tabName = tab.Name;
+            var vsb = (VScrollBar)tab.Controls["vsb" + tabName];
+            var pic = (PictureBox)tab.Controls["pic" + tabName];
             int maxWidth = pic.Width;
             foreach(var item in Lists[tabName]) {
                 if (null == item || null == item.Image) {
@@ -179,9 +194,20 @@ namespace UniversalBoardEditor {
                     continue;
                 }
                 if (vsb.Value <= posY + item.Image.Height) {
-                    var ofsY = posY - vsb.Value;
-                    g.DrawString(item.ImageName, NAME_FONT, Brushes.Black, 0, ofsY);
-                    g.DrawImage(item.Image, (maxWidth - item.Image.Width) / 2, ofsY + NAME_FONT.Height + 2);
+                    var ofsName = posY - vsb.Value;
+                    var ofsImage = ofsName + NAME_FONT.Height + 2;
+                    var ofsX = (maxWidth - item.Image.Width) / 2;
+                    g.DrawString(item.ImageName, NAME_FONT, Brushes.Black, 0, ofsName);
+                    g.DrawImage(item.Image, ofsX, ofsImage);
+                    int terminal = 1;
+                    foreach(var t in item.Tarminals) {
+                        var ts = g.MeasureString(terminal.ToString(), TERM_FONT);
+                        var tx = t.X + ofsX - ts.Width / 2;
+                        var ty = t.Y + ofsImage - ts.Height / 2;
+                        g.FillRectangle(TERM_BACKGROUND, tx, ty, ts.Width, ts.Height);
+                        g.DrawString(terminal.ToString(), TERM_FONT, Brushes.Black, tx, ty);
+                        terminal++;
+                    }
                 }
                 posY += item.Image.Height + ITEM_SPAN;
             }
