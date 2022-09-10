@@ -13,8 +13,6 @@ namespace UniversalBoardEditor {
     public partial class ImageList : Form {
         const int ITEM_SPAN = 32;
         readonly Font NAME_FONT = new Font("Meiryo UI", 9, FontStyle.Regular);
-        readonly Font TERM_FONT = new Font("Meiryo UI", 9, FontStyle.Bold);
-        readonly Brush TERM_BACKGROUND = (new Pen(Color.FromArgb(127, 255, 255, 255), 1)).Brush;
 
         Dictionary<string, List<ImageElements>> Lists = new Dictionary<string, List<ImageElements>>();
         bool mSetSize = false;
@@ -168,7 +166,7 @@ namespace UniversalBoardEditor {
             }
             mSelectedItem = 0;
             vsb.Value = 0;
-            vsb.Maximum = height - lastHeight;
+            vsb.Maximum = height - lastHeight + ITEM_SPAN / 4;
         }
 
         void scroll() {
@@ -199,15 +197,6 @@ namespace UniversalBoardEditor {
                     var ofsX = (maxWidth - item.Image.Width) / 2;
                     g.DrawString(item.ImageName, NAME_FONT, Brushes.Black, 0, ofsName);
                     g.DrawImage(item.Image, ofsX, ofsImage);
-                    int terminal = 1;
-                    foreach(var t in item.Tarminals) {
-                        var ts = g.MeasureString(terminal.ToString(), TERM_FONT);
-                        var tx = t.X + ofsX - ts.Width / 2;
-                        var ty = t.Y + ofsImage - ts.Height / 2;
-                        g.FillRectangle(TERM_BACKGROUND, tx, ty, ts.Width, ts.Height);
-                        g.DrawString(terminal.ToString(), TERM_FONT, Brushes.Black, tx, ty);
-                        terminal++;
-                    }
                 }
                 posY += item.Image.Height + ITEM_SPAN;
             }
