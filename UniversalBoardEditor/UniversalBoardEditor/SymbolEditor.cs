@@ -10,18 +10,18 @@ using System.Windows.Forms;
 
 namespace UniversalBoardEditor {
     public partial class SymbolEditor : Form {
-        readonly Brush GridMajor = new Pen(Color.FromArgb(95, 0, 0)).Brush;
-        readonly Brush GridMinor = new Pen(Color.FromArgb(63, 63, 63)).Brush;
+        readonly Brush GridColor = new Pen(Color.FromArgb(95, 0, 0)).Brush;
+        readonly Pen CursorColor = new Pen(Color.FromArgb(63, 0, 255, 255));
         readonly int[] mPitchDiv = new int[] {
-            2, 3, 4, 5,
-            6, 8, 10, 12,
-            16, 20, 24, 25,
-            32, 40, 48, 50,
-            64, 80, 96, 100
+            2, 4, 8, 10,
+            16, 20, 32,
+            50, 64, 100
         };
-        int mZoomIndex = 6;
+        const int SCALE = 4;
+        int mZoomIndex = 4;
         double mPitch = 1.0;
         bool mSetSize = true;
+        Point mMousePos;
 
         public SymbolEditor() {
             InitializeComponent();
@@ -35,6 +35,10 @@ namespace UniversalBoardEditor {
 
         private void SymbolEditor_SizeChanged(object sender, EventArgs e) {
             mSetSize = true;
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e) {
+            mMousePos = ((PictureBox)sender).PointToClient(Cursor.Position);
         }
 
         #region Menu[ファイル]
@@ -105,7 +109,7 @@ namespace UniversalBoardEditor {
         private void ピッチGToolStripMenuItem_Click(object sender, EventArgs e) {
             var fm = new Form() {
                 FormBorderStyle = FormBorderStyle.FixedToolWindow,
-                ControlBox = true,
+                ControlBox = false,
                 StartPosition = FormStartPosition.CenterParent,
                 Width = 96,
                 Height = 65,
@@ -179,21 +183,42 @@ namespace UniversalBoardEditor {
             if (mSetSize) {
                 setSize();
             }
-            var pitchDiv = mPitchDiv[mZoomIndex] * 2;
             var img = pictureBox1.Image;
             var g = Graphics.FromImage(img);
+            var pitchDiv = mPitchDiv[mZoomIndex];
+            var centerX = img.Width / 2;
+            var centerY = img.Height / 2;
+            var mouseX = mMousePos.X - centerX;
+            var mouseY = mMousePos.Y - centerY;
+            mouseX = (mouseX * pitchDiv / SCALE + Math.Sign(mouseX) * pitchDiv / 2) / pitchDiv;
+            mouseY = (mouseY * pitchDiv / SCALE + Math.Sign(mouseY) * pitchDiv / 2) / pitchDiv;
+            var posX = mouseX * mPitch / pitchDiv;
+            var posY = -mouseY * mPitch / pitchDiv;
+            pitchDiv *= SCALE;
+            mouseX = mouseX * SCALE + centerX;
+            mouseY = mouseY * SCALE + centerY;
+
+            lblPitch.Text = string.Format("ピッチ:{0}mm", mPitch.ToString("0.000"));
+            lblPitchDiv.Text = string.Format("ピッチ分割:{0}", mPitchDiv[mZoomIndex]);
+            lblPos.Text = string.Format("位置:{0}mm, {1}mm", posX.ToString("0.000"), posY.ToString("0.000"));
+
+            /***** *****/
             g.Clear(Color.Black);
-            if (12 <= pitchDiv) {
-                for (int y = 0; y < img.Height; y += pitchDiv) {
-                    for (int x = 0; x < img.Width; x += pitchDiv) {
-                        g.FillPie(GridMajor, x - 1.5f, y - 1.5f, 3, 3, 0, 360);
-                    }
+            for (float yp = centerY - 1.5f, ym = yp; yp < img.Height; yp += pitchDiv, ym -= pitchDiv) {
+                for (float xp = centerX - 1.5f, xm = xp; xp < img.Width; xp += pitchDiv, xm -= pitchDiv) {
+                    g.FillPie(GridColor, xp, yp, 3, 3, 0, 360);
+                    g.FillPie(GridColor, xp, ym, 3, 3, 0, 360);
+                    g.FillPie(GridColor, xm, yp, 3, 3, 0, 360);
+                    g.FillPie(GridColor, xm, ym, 3, 3, 0, 360);
                 }
             }
+            /***** *****/
+            g.DrawLine(CursorColor, mouseX, 0, mouseX, img.Height - 1);
+            g.DrawLine(CursorColor, 0, mouseY, img.Width - 1, mouseY);
+            /***** *****/
 
+            /***** *****/
             pictureBox1.Image = pictureBox1.Image;
-
-            lblDisp.Text = string.Format("ピッチ:{0}mm, ピッチ分割:{1}", mPitch.ToString("0.000"), mPitchDiv[mZoomIndex]);
             g.Dispose();
             mSetSize = false;
         }

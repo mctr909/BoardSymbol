@@ -66,7 +66,8 @@
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.lblDisp = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblPitch = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblPitchDiv = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblPos = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
@@ -83,7 +84,7 @@
             this.ツールTToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(480, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(634, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -383,6 +384,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(439, 377);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
             // vScrollBar1
             // 
@@ -401,29 +403,38 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblDisp,
+            this.lblPitch,
+            this.lblPitchDiv,
             this.lblPos});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 424);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 421);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(480, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(634, 29);
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // lblDisp
+            // lblPitch
             // 
-            this.lblDisp.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.lblDisp.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblDisp.Name = "lblDisp";
-            this.lblDisp.Size = new System.Drawing.Size(181, 21);
-            this.lblDisp.Text = "ピッチ:0.000mm, ピッチ分割:100";
+            this.lblPitch.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.lblPitch.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblPitch.Name = "lblPitch";
+            this.lblPitch.Size = new System.Drawing.Size(109, 24);
+            this.lblPitch.Text = "ピッチ:0.000mm";
+            // 
+            // lblPitchDiv
+            // 
+            this.lblPitchDiv.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.lblPitchDiv.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblPitchDiv.Name = "lblPitchDiv";
+            this.lblPitchDiv.Size = new System.Drawing.Size(102, 24);
+            this.lblPitchDiv.Text = "ピッチ分割:100";
             // 
             // lblPos
             // 
             this.lblPos.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.lblPos.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblPos.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblPos.Name = "lblPos";
-            this.lblPos.Size = new System.Drawing.Size(139, 21);
-            this.lblPos.Text = "99.999mm, 99.999mm";
+            this.lblPos.Size = new System.Drawing.Size(191, 24);
+            this.lblPos.Text = "位置:99.999mm, 99.999mm";
             // 
             // timer1
             // 
@@ -433,7 +444,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(480, 450);
+            this.ClientSize = new System.Drawing.Size(634, 450);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.hScrollBar1);
             this.Controls.Add(this.vScrollBar1);
@@ -496,11 +507,12 @@
         private VScrollBar vScrollBar1;
         private HScrollBar hScrollBar1;
         private StatusStrip statusStrip1;
-        private ToolStripStatusLabel lblDisp;
+        private ToolStripStatusLabel lblPitch;
         private ToolStripStatusLabel lblPos;
         private System.Windows.Forms.Timer timer1;
         private ToolStripSeparator toolStripSeparator9;
         private ToolStripMenuItem サイズ設定ZToolStripMenuItem;
         private ToolStripMenuItem クロソイド曲線CToolStripMenuItem;
+        private ToolStripStatusLabel lblPitchDiv;
     }
 }
