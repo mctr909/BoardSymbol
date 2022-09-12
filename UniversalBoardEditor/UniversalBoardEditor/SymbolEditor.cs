@@ -22,6 +22,11 @@ namespace UniversalBoardEditor {
         double mPitch = 1.0;
         bool mSetSize = true;
         Point mMousePos;
+        PointF mPos;
+        Point mCenter;
+
+        List<PointF[]> mPolyLines = new List<PointF[]>();
+        List<PointF> mPolyLine = new List<PointF>();
 
         public SymbolEditor() {
             InitializeComponent();
@@ -39,6 +44,20 @@ namespace UniversalBoardEditor {
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e) {
             mMousePos = ((PictureBox)sender).PointToClient(Cursor.Position);
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e) {
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Left) {
+                mPolyLine.Add(mPos);
+            } else {
+                if (2 <= mPolyLine.Count) {
+                    mPolyLines.Add(mPolyLine.ToArray());
+                    mPolyLine.Clear();
+                }
+            }
         }
 
         #region Menu[ファイル]
@@ -186,27 +205,25 @@ namespace UniversalBoardEditor {
             var img = pictureBox1.Image;
             var g = Graphics.FromImage(img);
             var pitchDiv = mPitchDiv[mZoomIndex];
-            var centerX = img.Width / 2;
-            var centerY = img.Height / 2;
-            var mouseX = mMousePos.X - centerX;
-            var mouseY = mMousePos.Y - centerY;
+            var mouseX = mMousePos.X - mCenter.X;
+            var mouseY = mMousePos.Y - mCenter.Y;
             mouseX = (mouseX * pitchDiv / SCALE + Math.Sign(mouseX) * pitchDiv / 2) / pitchDiv;
             mouseY = (mouseY * pitchDiv / SCALE + Math.Sign(mouseY) * pitchDiv / 2) / pitchDiv;
-            var posX = mouseX * mPitch / pitchDiv;
-            var posY = -mouseY * mPitch / pitchDiv;
+            mPos.X = (float)(mouseX * mPitch / pitchDiv);
+            mPos.Y = (float)(-mouseY * mPitch / pitchDiv);
             pitchDiv *= SCALE;
-            mouseX = mouseX * SCALE + centerX;
-            mouseY = mouseY * SCALE + centerY;
+            mouseX = mouseX * SCALE + mCenter.X;
+            mouseY = mouseY * SCALE + mCenter.Y;
 
             lblPitch.Text = string.Format("グリッドピッチ:{0}mm", mPitch.ToString("0.000"));
             lblPitchDiv.Text = string.Format("ピッチ分割:{0}", mPitchDiv[mZoomIndex]);
-            lblPos.Text = string.Format("位置:{0}mm, {1}mm", posX.ToString("0.000"), posY.ToString("0.000"));
+            lblPos.Text = string.Format("位置:{0}mm, {1}mm", mPos.X.ToString("0.000"), mPos.Y.ToString("0.000"));
 
             /***** *****/
             g.Clear(Color.Black);
             if (8 * SCALE <= pitchDiv) {
-                for (float yp = centerY - 1.5f, ym = yp; yp < img.Height; yp += pitchDiv, ym -= pitchDiv) {
-                    for (float xp = centerX - 1.5f, xm = xp; xp < img.Width; xp += pitchDiv, xm -= pitchDiv) {
+                for (float yp = mCenter.Y - 1.5f, ym = yp; yp < img.Height; yp += pitchDiv, ym -= pitchDiv) {
+                    for (float xp = mCenter.X - 1.5f, xm = xp; xp < img.Width; xp += pitchDiv, xm -= pitchDiv) {
                         g.FillPie(GridColor, xp, yp, 3, 3, 0, 360);
                         g.FillPie(GridColor, xp, ym, 3, 3, 0, 360);
                         g.FillPie(GridColor, xm, yp, 3, 3, 0, 360);
@@ -217,8 +234,33 @@ namespace UniversalBoardEditor {
             /***** *****/
             g.DrawLine(CursorColor, mouseX, 0, mouseX, img.Height - 1);
             g.DrawLine(CursorColor, 0, mouseY, img.Width - 1, mouseY);
-            /***** *****/
-
+            /***** PolyLine *****/
+            foreach (var line in mPolyLines) {
+                var p0 = new PointF();
+                var p1 = new PointF();
+                mmToPoint(line[0], ref p0);
+                for (int i = 1; i < line.Length; i++) {
+                    mmToPoint(line[i], ref p1);
+                    g.DrawLine(Pens.Gray, p0, p1);
+                    p0 = p1;
+                }
+            }
+            /***** Editing PolyLine *****/
+            if (2 <= mPolyLine.Count) {
+                var p0 = new PointF();
+                var p1 = new PointF();
+                mmToPoint(mPolyLine[0], ref p0);
+                for (int i = 1; i < mPolyLine.Count; i++) {
+                    mmToPoint(mPolyLine[i], ref p1);
+                    g.DrawLine(Pens.DeepSkyBlue, p0, p1);
+                    p0 = p1;
+                }
+            }
+            if (1 <= mPolyLine.Count) {
+                var p0 = new PointF();
+                mmToPoint(mPolyLine[mPolyLine.Count - 1], ref p0);
+                g.DrawLine(Pens.Blue, p0, mMousePos);
+            }
             /***** *****/
             pictureBox1.Image = pictureBox1.Image;
             g.Dispose();
@@ -271,6 +313,14 @@ namespace UniversalBoardEditor {
                 pictureBox1.Image = null;
             }
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            mCenter.X = pictureBox1.Width / 2;
+            mCenter.Y = pictureBox1.Height / 2;
+        }
+
+        void mmToPoint(PointF mm, ref PointF output) {
+            var scale = (float)(mPitchDiv[mZoomIndex] * SCALE / mPitch);
+            output.X = mm.X * scale + mCenter.X;
+            output.Y = -mm.Y * scale + mCenter.Y;
         }
     }
 }

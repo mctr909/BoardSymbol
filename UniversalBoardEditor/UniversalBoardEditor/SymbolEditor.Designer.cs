@@ -302,78 +302,78 @@
             // 直線LToolStripMenuItem
             // 
             this.直線LToolStripMenuItem.Name = "直線LToolStripMenuItem";
-            this.直線LToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.直線LToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.直線LToolStripMenuItem.Text = "直線(L)";
             this.直線LToolStripMenuItem.Click += new System.EventHandler(this.直線LToolStripMenuItem_Click);
             // 
             // 円弧AToolStripMenuItem
             // 
             this.円弧AToolStripMenuItem.Name = "円弧AToolStripMenuItem";
-            this.円弧AToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.円弧AToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.円弧AToolStripMenuItem.Text = "円弧(A)";
             this.円弧AToolStripMenuItem.Click += new System.EventHandler(this.円弧AToolStripMenuItem_Click);
             // 
             // クロソイド曲線CToolStripMenuItem
             // 
             this.クロソイド曲線CToolStripMenuItem.Name = "クロソイド曲線CToolStripMenuItem";
-            this.クロソイド曲線CToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.クロソイド曲線CToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.クロソイド曲線CToolStripMenuItem.Text = "クロソイド曲線(C)";
             this.クロソイド曲線CToolStripMenuItem.Click += new System.EventHandler(this.クロソイド曲線CToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(155, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
             // 
             // ポリラインIToolStripMenuItem
             // 
             this.ポリラインIToolStripMenuItem.Name = "ポリラインIToolStripMenuItem";
-            this.ポリラインIToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.ポリラインIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ポリラインIToolStripMenuItem.Text = "ポリライン(I)";
             this.ポリラインIToolStripMenuItem.Click += new System.EventHandler(this.ポリラインIToolStripMenuItem_Click);
             // 
             // ポリゴンGToolStripMenuItem
             // 
             this.ポリゴンGToolStripMenuItem.Name = "ポリゴンGToolStripMenuItem";
-            this.ポリゴンGToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.ポリゴンGToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ポリゴンGToolStripMenuItem.Text = "ポリゴン(G)";
             this.ポリゴンGToolStripMenuItem.Click += new System.EventHandler(this.ポリゴンGToolStripMenuItem_Click);
             // 
             // 穴あけポリゴンHToolStripMenuItem
             // 
             this.穴あけポリゴンHToolStripMenuItem.Name = "穴あけポリゴンHToolStripMenuItem";
-            this.穴あけポリゴンHToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.穴あけポリゴンHToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.穴あけポリゴンHToolStripMenuItem.Text = "穴あけポリゴン(H)";
             this.穴あけポリゴンHToolStripMenuItem.Click += new System.EventHandler(this.穴あけポリゴンHToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(155, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(177, 6);
             // 
             // 原点移動OToolStripMenuItem
             // 
             this.原点移動OToolStripMenuItem.Name = "原点移動OToolStripMenuItem";
-            this.原点移動OToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.原点移動OToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.原点移動OToolStripMenuItem.Text = "原点移動(O)";
             this.原点移動OToolStripMenuItem.Click += new System.EventHandler(this.原点移動OToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(155, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(177, 6);
             // 
             // 距離測定DToolStripMenuItem
             // 
             this.距離測定DToolStripMenuItem.Name = "距離測定DToolStripMenuItem";
-            this.距離測定DToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.距離測定DToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.距離測定DToolStripMenuItem.Text = "距離測定(D)";
             this.距離測定DToolStripMenuItem.Click += new System.EventHandler(this.距離測定DToolStripMenuItem_Click);
             // 
             // 角度測定NToolStripMenuItem
             // 
             this.角度測定NToolStripMenuItem.Name = "角度測定NToolStripMenuItem";
-            this.角度測定NToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.角度測定NToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.角度測定NToolStripMenuItem.Text = "角度測定(N)";
             this.角度測定NToolStripMenuItem.Click += new System.EventHandler(this.角度測定NToolStripMenuItem_Click);
             // 
@@ -384,7 +384,9 @@
             this.pictureBox1.Size = new System.Drawing.Size(439, 377);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // vScrollBar1
             // 
