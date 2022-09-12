@@ -13,12 +13,12 @@ namespace UniversalBoardEditor {
         readonly Brush GridColor = new Pen(Color.FromArgb(95, 0, 0)).Brush;
         readonly Pen CursorColor = new Pen(Color.FromArgb(63, 0, 255, 255));
         readonly int[] mPitchDiv = new int[] {
-            2, 4, 8, 10,
+            4, 8, 10,
             16, 20, 32,
             50, 64, 100
         };
-        const int SCALE = 4;
-        int mZoomIndex = 4;
+        const int SCALE = 5;
+        int mZoomIndex = 2;
         double mPitch = 1.0;
         bool mSetSize = true;
         Point mMousePos;
@@ -106,7 +106,7 @@ namespace UniversalBoardEditor {
             }
         }
 
-        private void ピッチGToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void グリッドピッチGToolStripMenuItem_Click(object sender, EventArgs e) {
             var fm = new Form() {
                 FormBorderStyle = FormBorderStyle.FixedToolWindow,
                 ControlBox = false,
@@ -198,18 +198,20 @@ namespace UniversalBoardEditor {
             mouseX = mouseX * SCALE + centerX;
             mouseY = mouseY * SCALE + centerY;
 
-            lblPitch.Text = string.Format("ピッチ:{0}mm", mPitch.ToString("0.000"));
+            lblPitch.Text = string.Format("グリッドピッチ:{0}mm", mPitch.ToString("0.000"));
             lblPitchDiv.Text = string.Format("ピッチ分割:{0}", mPitchDiv[mZoomIndex]);
             lblPos.Text = string.Format("位置:{0}mm, {1}mm", posX.ToString("0.000"), posY.ToString("0.000"));
 
             /***** *****/
             g.Clear(Color.Black);
-            for (float yp = centerY - 1.5f, ym = yp; yp < img.Height; yp += pitchDiv, ym -= pitchDiv) {
-                for (float xp = centerX - 1.5f, xm = xp; xp < img.Width; xp += pitchDiv, xm -= pitchDiv) {
-                    g.FillPie(GridColor, xp, yp, 3, 3, 0, 360);
-                    g.FillPie(GridColor, xp, ym, 3, 3, 0, 360);
-                    g.FillPie(GridColor, xm, yp, 3, 3, 0, 360);
-                    g.FillPie(GridColor, xm, ym, 3, 3, 0, 360);
+            if (8 * SCALE <= pitchDiv) {
+                for (float yp = centerY - 1.5f, ym = yp; yp < img.Height; yp += pitchDiv, ym -= pitchDiv) {
+                    for (float xp = centerX - 1.5f, xm = xp; xp < img.Width; xp += pitchDiv, xm -= pitchDiv) {
+                        g.FillPie(GridColor, xp, yp, 3, 3, 0, 360);
+                        g.FillPie(GridColor, xp, ym, 3, 3, 0, 360);
+                        g.FillPie(GridColor, xm, yp, 3, 3, 0, 360);
+                        g.FillPie(GridColor, xm, ym, 3, 3, 0, 360);
+                    }
                 }
             }
             /***** *****/

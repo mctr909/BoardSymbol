@@ -48,7 +48,7 @@
             this.拡大ZToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.縮小SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.ピッチGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.グリッドピッチGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ツールTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.直線LToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.円弧AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -244,7 +244,7 @@
             this.拡大ZToolStripMenuItem,
             this.縮小SToolStripMenuItem,
             this.toolStripSeparator4,
-            this.ピッチGToolStripMenuItem});
+            this.グリッドピッチGToolStripMenuItem});
             this.表示DToolStripMenuItem.Name = "表示DToolStripMenuItem";
             this.表示DToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.表示DToolStripMenuItem.Text = "表示(D)";
@@ -254,7 +254,7 @@
             this.拡大ZToolStripMenuItem.Name = "拡大ZToolStripMenuItem";
             this.拡大ZToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+(+)";
             this.拡大ZToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemplus)));
-            this.拡大ZToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.拡大ZToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.拡大ZToolStripMenuItem.Text = "拡大(Z)";
             this.拡大ZToolStripMenuItem.Click += new System.EventHandler(this.拡大ZToolStripMenuItem_Click);
             // 
@@ -263,22 +263,22 @@
             this.縮小SToolStripMenuItem.Name = "縮小SToolStripMenuItem";
             this.縮小SToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+(-)";
             this.縮小SToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.OemMinus)));
-            this.縮小SToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.縮小SToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.縮小SToolStripMenuItem.Text = "縮小(S)";
             this.縮小SToolStripMenuItem.Click += new System.EventHandler(this.縮小SToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(159, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(187, 6);
             // 
-            // ピッチGToolStripMenuItem
+            // グリッドピッチGToolStripMenuItem
             // 
-            this.ピッチGToolStripMenuItem.Name = "ピッチGToolStripMenuItem";
-            this.ピッチGToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.ピッチGToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.ピッチGToolStripMenuItem.Text = "ピッチ(G)";
-            this.ピッチGToolStripMenuItem.Click += new System.EventHandler(this.ピッチGToolStripMenuItem_Click);
+            this.グリッドピッチGToolStripMenuItem.Name = "グリッドピッチGToolStripMenuItem";
+            this.グリッドピッチGToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.グリッドピッチGToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.グリッドピッチGToolStripMenuItem.Text = "グリッドピッチ(G)";
+            this.グリッドピッチGToolStripMenuItem.Click += new System.EventHandler(this.グリッドピッチGToolStripMenuItem_Click);
             // 
             // ツールTToolStripMenuItem
             // 
@@ -417,8 +417,8 @@
             this.lblPitch.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.lblPitch.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblPitch.Name = "lblPitch";
-            this.lblPitch.Size = new System.Drawing.Size(109, 24);
-            this.lblPitch.Text = "ピッチ:0.000mm";
+            this.lblPitch.Size = new System.Drawing.Size(153, 24);
+            this.lblPitch.Text = "グリッドピッチ:0.000mm";
             // 
             // lblPitchDiv
             // 
@@ -489,7 +489,7 @@
         private ToolStripMenuItem 拡大ZToolStripMenuItem;
         private ToolStripMenuItem 縮小SToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator4;
-        private ToolStripMenuItem ピッチGToolStripMenuItem;
+        private ToolStripMenuItem グリッドピッチGToolStripMenuItem;
         private ToolStripMenuItem 選択SToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator7;
         private ToolStripMenuItem 直線LToolStripMenuItem;
